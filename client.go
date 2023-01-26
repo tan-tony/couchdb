@@ -54,7 +54,8 @@ func (c *client) CreateDB(ctx context.Context, dbName string, opts map[string]in
 	if err != nil {
 		return err
 	}
-	_, err = c.DoError(ctx, http.MethodPut, url.PathEscape(dbName), &chttp.Options{Query: query})
+	// change: escape +
+	_, err = c.DoError(ctx, http.MethodPut, url.QueryEscape(dbName), &chttp.Options{Query: query})
 	return err
 }
 
@@ -62,7 +63,8 @@ func (c *client) DestroyDB(ctx context.Context, dbName string, _ map[string]inte
 	if dbName == "" {
 		return missingArg("dbName")
 	}
-	_, err := c.DoError(ctx, http.MethodDelete, url.PathEscape(dbName), nil)
+	// change: escape +
+	_, err := c.DoError(ctx, http.MethodDelete, url.QueryEscape(dbName), nil)
 	return err
 }
 

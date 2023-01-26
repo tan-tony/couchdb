@@ -90,6 +90,6 @@ func (c *client) DB(dbName string, _ map[string]interface{}) (driver.DB, error) 
 	}
 	return &db{
 		client: c,
-		dbName: url.PathEscape(dbName),
+		dbName: url.QueryEscape(dbName), // change, to escape +
 	}, nil
 }
